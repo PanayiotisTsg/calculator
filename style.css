@@ -36,6 +36,14 @@ body {
     height: 20%;
     background-color: rgb(216, 93, 79);
     border-radius: 10px;
+    color: rgb(255, 255, 255);
+    font-size: 24px;
+    text-align: right;
+    padding: 10px;
+}
+
+.display-box > p {
+    margin: 0;
 }
 
 .buttons-container {
@@ -54,6 +62,13 @@ button {
     height: 85px;
     background-color: rgb(255, 82, 19);
     color: rgb(255, 255, 255);
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    cursor: pointer;
+    transform: scale(0.95);
+    background-color: rgba(255, 82, 19, 0.842);
 }
 
 #clear,
