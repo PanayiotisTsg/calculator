@@ -49,11 +49,13 @@ operatorButtons.forEach(btn => {
 
 const equalsButton = document.querySelector('#equals');
 equalsButton.addEventListener('click', (e) => {
-    result = operate(firstNum, operator, secondNum);
+    result = (firstNum && secondNum && operator) ? operate(firstNum, operator, secondNum) : firstNum;
+    console.log(result);
     result = (result % 1) ? Math.round(result * 100) / 100 : result;
     mainDisplay.textContent = result;
     firstNum = result;
     operator = null;
+    secondNum = null;
 })
 
 const clearButton = document.querySelector('#clear');
