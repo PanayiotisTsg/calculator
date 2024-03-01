@@ -31,8 +31,10 @@ numButtons.forEach(btn => {
 const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
+        //For multiple operation case
         if (operator) {
             result = operate(firstNum, operator, secondNum);
+            result = (result % 1) ? Math.round(result * 100) / 100 : result;
             mainDisplay.textContent = result;
             firstNum = result;
         }
@@ -48,6 +50,7 @@ operatorButtons.forEach(btn => {
 const equalsButton = document.querySelector('#equals');
 equalsButton.addEventListener('click', (e) => {
     result = operate(firstNum, operator, secondNum);
+    result = (result % 1) ? Math.round(result * 100) / 100 : result;
     mainDisplay.textContent = result;
     firstNum = result;
     operator = null;
