@@ -31,6 +31,11 @@ numButtons.forEach(btn => {
 const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
+        if (operator) {
+            result = operate(firstNum, operator, secondNum);
+            mainDisplay.textContent = result;
+            firstNum = result;
+        }
         mainDisplay.textContent += e.target.textContent;
         displayOperator = e.target.textContent;
         operator = displayOperator === '×' ? '*' :
@@ -45,4 +50,5 @@ equalsButton.addEventListener('click', (e) => {
     result = operate(firstNum, operator, secondNum);
     mainDisplay.textContent = result;
     firstNum = result;
+    operator = null;
 })
