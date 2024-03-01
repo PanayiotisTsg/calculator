@@ -55,3 +55,13 @@ equalsButton.addEventListener('click', (e) => {
     firstNum = result;
     operator = null;
 })
+
+const clearButton = document.querySelector('#clear');
+clearButton.addEventListener('click', () => {
+    firstNum = null;
+    secondNum = null;
+    operator = null;
+    result = null;
+
+    mainDisplay.textContent = '';
+})
