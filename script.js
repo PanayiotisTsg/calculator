@@ -16,12 +16,23 @@ function operate(numA, operator, numB) {
     return methods[operator](+numA, +numB);
 }
 
+function getResult() {
+    return (firstNum && operator && secondNum)
+        ? (operate(firstNum, operator, secondNum) % 1)
+            ? Math.round(operate(firstNum, operator, secondNum) * 100) / 100
+            : operate(firstNum, operator, secondNum)
+        : firstNum;
+}
+
 const mainDisplay = document.querySelector('.main-display');
 const numButtons = document.querySelectorAll('.num');
 numButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
-        mainDisplay.textContent += e.target.textContent;
-        firstNum = mainDisplay.textContent.split(displayOperator)[0];
+        mainDisplay.textContent = (mainDisplay.textContent === '0')
+            ? e.target.textContent
+            : mainDisplay.textContent + e.target.textContent;
+        //mainDisplay.textContent += e.target.textContent;
+        firstNum = mainDisplay.textContent.split(displayOperator)[0] || '0';
         secondNum = mainDisplay.textContent.split(displayOperator)[1];
         console.log(`first num: ${firstNum}`);
         console.log(`second num: ${secondNum}`);
@@ -33,12 +44,15 @@ operatorButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
         //For multiple operation case
         if (operator) {
-            result = operate(firstNum, operator, secondNum);
-            result = (result % 1) ? Math.round(result * 100) / 100 : result;
+            result = getResult();
+            console.log(result);
             mainDisplay.textContent = result;
             firstNum = result;
         }
-        mainDisplay.textContent += e.target.textContent;
+        mainDisplay.textContent = (mainDisplay.textContent === '0' && e.target.textContent === '-')
+            ? e.target.textContent
+            : mainDisplay.textContent + e.target.textContent;
+        //mainDisplay.textContent += e.target.textContent;
         displayOperator = e.target.textContent;
         operator = displayOperator === '×' ? '*' :
             displayOperator === '÷' ? '/' :
@@ -49,9 +63,7 @@ operatorButtons.forEach(btn => {
 
 const equalsButton = document.querySelector('#equals');
 equalsButton.addEventListener('click', (e) => {
-    result = (firstNum && secondNum && operator) ? operate(firstNum, operator, secondNum) : firstNum;
-    console.log(result);
-    result = (result % 1) ? Math.round(result * 100) / 100 : result;
+    result = getResult();
     mainDisplay.textContent = result;
     firstNum = result;
     operator = null;
@@ -65,5 +77,5 @@ clearButton.addEventListener('click', () => {
     operator = null;
     result = null;
 
-    mainDisplay.textContent = '';
+    mainDisplay.textContent = '0';
 })
