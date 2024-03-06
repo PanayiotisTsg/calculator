@@ -71,7 +71,12 @@ button:hover {
     background-color: rgba(255, 82, 19, 0.842);
 }
 
-#clear,
-#equals {
+#clear {
     width: 275px;
+    /* (square button * 3) + (gaps) = (85px * 3) + 20px */
+}
+
+#equals {
+    width: 180px;
+    /* (85px * 2) + 10px */
 }

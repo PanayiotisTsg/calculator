@@ -11,7 +11,6 @@ let operator;
 let displayOperator;
 let result;
 
-
 function operate(numA, operator, numB) {
     return methods[operator](+numA, +numB);
 }
@@ -28,12 +27,12 @@ const mainDisplay = document.querySelector('.main-display');
 const numButtons = document.querySelectorAll('.num');
 numButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
-        mainDisplay.textContent = (mainDisplay.textContent === '0')
+        mainDisplay.textContent = (mainDisplay.textContent === '0' || result)
             ? e.target.textContent
             : mainDisplay.textContent + e.target.textContent;
-        //mainDisplay.textContent += e.target.textContent;
         firstNum = mainDisplay.textContent.split(displayOperator)[0] || '0';
         secondNum = mainDisplay.textContent.split(displayOperator)[1];
+        result = null;
         console.log(`first num: ${firstNum}`);
         console.log(`second num: ${secondNum}`);
     });
@@ -49,14 +48,16 @@ operatorButtons.forEach(btn => {
             mainDisplay.textContent = result;
             firstNum = result;
         }
+        //If user press '-' before any number it will show '-num' instead of '0-num'
         mainDisplay.textContent = (mainDisplay.textContent === '0' && e.target.textContent === '-')
             ? e.target.textContent
             : mainDisplay.textContent + e.target.textContent;
-        //mainDisplay.textContent += e.target.textContent;
         displayOperator = e.target.textContent;
-        operator = displayOperator === '×' ? '*' :
-            displayOperator === '÷' ? '/' :
+        operator = (displayOperator === '×') ? '*' :
+            (displayOperator === '÷') ? '/' :
             displayOperator;
+        result = null;
+        pointButton.addEventListener('click', displayPoint);
         console.log(`operator: ${operator}`);
     })
 })
@@ -68,6 +69,8 @@ equalsButton.addEventListener('click', (e) => {
     firstNum = result;
     operator = null;
     secondNum = null;
+
+    pointButton.removeEventListener('click', displayPoint);
 })
 
 const clearButton = document.querySelector('#clear');
@@ -78,4 +81,14 @@ clearButton.addEventListener('click', () => {
     result = null;
 
     mainDisplay.textContent = '0';
+
+    pointButton.addEventListener('click', displayPoint);
 })
+
+function displayPoint(e) {
+    mainDisplay.textContent += e.target.textContent;
+    pointButton.removeEventListener('click', displayPoint);
+}
+
+const pointButton = document.querySelector('.point');
+pointButton.addEventListener('click', displayPoint);
