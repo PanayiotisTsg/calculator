@@ -27,9 +27,22 @@ const mainDisplay = document.querySelector('.main-display');
 const numButtons = document.querySelectorAll('.num');
 numButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
-        mainDisplay.textContent = (mainDisplay.textContent === '0' || result)
+        switch (mainDisplay.textContent) {
+            case '0':
+                mainDisplay.textContent = e.target.textContent;
+                break;
+            case `${result}`:
+                mainDisplay.textContent = e.target.textContent;
+                pointButton.addEventListener('click', displayPoint);
+                break;
+            default:
+                mainDisplay.textContent += e.target.textContent;
+        }
+
+        /*mainDisplay.textContent = (mainDisplay.textContent === '0' || result)
             ? e.target.textContent
             : mainDisplay.textContent + e.target.textContent;
+        */
         firstNum = mainDisplay.textContent.split(displayOperator)[0] || '0';
         secondNum = mainDisplay.textContent.split(displayOperator)[1];
         result = null;
