@@ -37,13 +37,22 @@ body {
     background-color: rgb(216, 93, 79);
     border-radius: 10px;
     color: rgb(255, 255, 255);
-    font-size: 24px;
+    font-size: 31px;
     text-align: right;
-    padding: 10px;
+    padding: 10px 15px 3px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .display-box > p {
     margin: 0;
+    padding: 0;
+}
+
+.history-display {
+    font-size: 22px;
+    color: rgb(219, 168, 162);
 }
 
 .buttons-container {

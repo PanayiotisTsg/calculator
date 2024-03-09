@@ -23,6 +23,7 @@ function getResult() {
         : firstNum;
 }
 
+const historyDisplay = document.querySelector('.history-display');
 const mainDisplay = document.querySelector('.main-display');
 const numButtons = document.querySelectorAll('.num');
 numButtons.forEach(btn => {
@@ -38,11 +39,6 @@ numButtons.forEach(btn => {
             default:
                 mainDisplay.textContent += e.target.textContent;
         }
-
-        /*mainDisplay.textContent = (mainDisplay.textContent === '0' || result)
-            ? e.target.textContent
-            : mainDisplay.textContent + e.target.textContent;
-        */
         firstNum = mainDisplay.textContent.split(displayOperator)[0] || '0';
         secondNum = mainDisplay.textContent.split(displayOperator)[1];
         result = null;
@@ -58,6 +54,7 @@ operatorButtons.forEach(btn => {
         if (operator) {
             result = getResult();
             console.log(result);
+            historyDisplay.textContent = mainDisplay.textContent + ' =';
             mainDisplay.textContent = result;
             firstNum = result;
         }
@@ -70,6 +67,7 @@ operatorButtons.forEach(btn => {
             (displayOperator === '÷') ? '/' :
             displayOperator;
         result = null;
+        secondNum = null;
         pointButton.addEventListener('click', displayPoint);
         console.log(`operator: ${operator}`);
     })
@@ -78,7 +76,10 @@ operatorButtons.forEach(btn => {
 const equalsButton = document.querySelector('#equals');
 equalsButton.addEventListener('click', (e) => {
     result = getResult();
+    
+    historyDisplay.textContent = mainDisplay.textContent + ' =';
     mainDisplay.textContent = result;
+
     firstNum = result;
     operator = null;
     secondNum = null;
