@@ -10,13 +10,16 @@ let secondNum;
 let operator;
 let displayOperator;
 let result;
+let clickEvent = new Event('click');
 
 function operate(numA, operator, numB) {
     return methods[operator](+numA, +numB);
 }
 
 function getResult() {
+    // If user doesn't enter all 3 parts of the expression
     return (firstNum && operator && secondNum)
+        // If the result is a float number, round to 2 decimal places
         ? (operate(firstNum, operator, secondNum) % 1)
             ? Math.round(operate(firstNum, operator, secondNum) * 100) / 100
             : operate(firstNum, operator, secondNum)
@@ -39,9 +42,8 @@ numButtons.forEach(btn => {
             default:
                 mainDisplay.textContent += e.target.textContent;
         }
-        firstNum = mainDisplay.textContent.split(displayOperator)[0] || '0';
-        secondNum = mainDisplay.textContent.split(displayOperator)[1];
-        result = null;
+        firstNum = result || mainDisplay.textContent.split(displayOperator)[0] || '0';
+        secondNum = mainDisplay.textContent.split(displayOperator).at(-1);
         console.log(`first num: ${firstNum}`);
         console.log(`second num: ${secondNum}`);
     });
@@ -53,7 +55,7 @@ operatorButtons.forEach(btn => {
         //For multiple operation case
         if (operator) {
             result = getResult();
-            console.log(result);
+            console.log(`result: ${result}`);
             historyDisplay.textContent = mainDisplay.textContent + ' =';
             mainDisplay.textContent = result;
             firstNum = result;
@@ -66,7 +68,6 @@ operatorButtons.forEach(btn => {
         operator = (displayOperator === '×') ? '*' :
             (displayOperator === '÷') ? '/' :
             displayOperator;
-        result = null;
         secondNum = null;
         pointButton.addEventListener('click', displayPoint);
         console.log(`operator: ${operator}`);
@@ -95,6 +96,7 @@ clearButton.addEventListener('click', () => {
     result = null;
 
     mainDisplay.textContent = '0';
+    historyDisplay.textContent = '';
 
     pointButton.addEventListener('click', displayPoint);
 })
@@ -106,3 +108,22 @@ function displayPoint(e) {
 
 const pointButton = document.querySelector('.point');
 pointButton.addEventListener('click', displayPoint);
+
+const deleteButton = document.querySelector('#delete');
+deleteButton.addEventListener('click', () => {
+    /*if (mainDisplay.textContent !== '0' || 
+        !mainDisplay.textContent.includes('Infinity') ||
+        mainDisplay.textContent !== result.toString()) {
+        console.log('testttt');
+        mainDisplay.textContent = mainDisplay.textContent.slice(0, -1);
+    }*/
+    let undeletableValues = ['Infinity', '-Infinity', `${result}`];
+    if (
+        undeletableValues.includes(mainDisplay.textContent) ||
+        mainDisplay.textContent.length === 1
+    ) {
+        clearButton.dispatchEvent(clickEvent);
+    } else {
+        mainDisplay.textContent = mainDisplay.textContent.slice(0, -1);
+    }
+})

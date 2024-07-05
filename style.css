@@ -81,8 +81,8 @@ button:hover {
 }
 
 #clear {
-    width: 275px;
-    /* (square button * 3) + (gaps) = (85px * 3) + 20px */
+    width: 180px;
+    /* (square button * 2) + (gaps) = (85px * 2) + 10px */
 }
 
 #equals {
