@@ -11,6 +11,7 @@ let operator;
 let displayOperator;
 let result;
 let clickEvent = new Event('click');
+let clickClear = new Event('click');
 
 function operate(numA, operator, numB) {
     return methods[operator](+numA, +numB);
@@ -37,6 +38,7 @@ numButtons.forEach(btn => {
                 break;
             case `${result}`:
                 mainDisplay.textContent = e.target.textContent;
+                result = null;
                 pointButton.addEventListener('click', displayPoint);
                 break;
             default:
@@ -111,19 +113,30 @@ pointButton.addEventListener('click', displayPoint);
 
 const deleteButton = document.querySelector('#delete');
 deleteButton.addEventListener('click', () => {
-    /*if (mainDisplay.textContent !== '0' || 
-        !mainDisplay.textContent.includes('Infinity') ||
-        mainDisplay.textContent !== result.toString()) {
-        console.log('testttt');
-        mainDisplay.textContent = mainDisplay.textContent.slice(0, -1);
-    }*/
     let undeletableValues = ['Infinity', '-Infinity', `${result}`];
     if (
         undeletableValues.includes(mainDisplay.textContent) ||
         mainDisplay.textContent.length === 1
     ) {
-        clearButton.dispatchEvent(clickEvent);
+        clearButton.dispatchEvent(clickClear);
     } else {
         mainDisplay.textContent = mainDisplay.textContent.slice(0, -1);
     }
+})
+
+window.addEventListener('keydown', (e) => {
+    const calculatorBtn = document.querySelector(`button[data-key='${e.key}']`);
+    if (!calculatorBtn) return;
+
+    calculatorBtn.dispatchEvent(clickEvent);
+
+    // Add pressing animation
+    calculatorBtn.classList.add('pressed');
+    // Remove animation
+    calculatorBtn.addEventListener('transitionend', (e) => {
+        if (e.propertyName === 'color') {
+            console.log(e.propertyName);
+            calculatorBtn.classList.remove('pressed');
+        }
+    })
 })
