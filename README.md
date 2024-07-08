@@ -33,7 +33,7 @@ Welcome to the Calculator project! This project is part of [The Odin Project's F
 6. Use the "." button to input decimal numbers (only one decimal point allowed per number).
 7. Use the "CE" button to undo the last input.
 8. You can also use your keyboard to input numbers and operations.
-   - The "Esc" key serves as the clear button.
+   - The "Esc" key serves as the AC (All clear) button.
    - The "Backspace" key serves as the CE (clear entry) button.
 
 ## Technologies Used
