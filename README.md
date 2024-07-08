@@ -1,8 +1,14 @@
-# Calculator
+![](./design/design-preview.png)
+
+<h1 align='center'>Calculator</h1>
+
+<h3 align='center'>
+    <a href='https://panayiotistsg.github.io/calculator/'>Live Demo</a>
+</h3>
 
 ## Introduction
 
-Welcome to the Calculator project! This project is part of The Odin Project's Foundations Course. It combines everything I've learned so far about JavaScript, HTML, and CSS to create an on-screen calculator.
+Welcome to the Calculator project! This project is part of [The Odin Project's Foundations Course](https://www.theodinproject.com/lessons/foundations-calculator). It combines everything I've learned so far about JavaScript, HTML, and CSS to create an on-screen calculator.
 
 ## Features
 
