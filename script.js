@@ -12,6 +12,8 @@ let displayOperator;
 let result;
 let clickEvent = new Event('click');
 let clickClear = new Event('click');
+let isKeyDown = false;
+let lastKeyDown;
 
 function operate(numA, operator, numB) {
     return methods[operator](+numA, +numB);
@@ -125,6 +127,10 @@ deleteButton.addEventListener('click', () => {
 })
 
 window.addEventListener('keydown', (e) => {
+    if (isKeyDown && lastKeyDown === e.key) return;
+    isKeyDown = true;
+    lastKeyDown = e.key;
+
     const calculatorBtn = document.querySelector(`button[data-key='${e.key}']`);
     if (!calculatorBtn) return;
 
@@ -139,4 +145,8 @@ window.addEventListener('keydown', (e) => {
             calculatorBtn.classList.remove('pressed');
         }
     })
+})
+
+window.addEventListener('keyup', () => {
+    isKeyDown = false;
 })
