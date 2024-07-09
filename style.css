@@ -16,6 +16,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
 .calculator {
@@ -57,8 +58,13 @@ body {
 
 .buttons-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     width: 100%;
+    gap: 10px;
+}
+
+.row {
+    display: flex;
     gap: 10px;
 }
 
@@ -67,11 +73,11 @@ button {
     border: none;
     border-radius: 5px;
     padding: 0;
-    width: 85px;
     height: 85px;
     background-color: rgb(255, 82, 19);
     color: rgb(255, 255, 255);
     transition: all 0.1s ease;
+    flex-basis: 85px;
 }
 
 button:hover {
@@ -87,11 +93,17 @@ button:hover {
 }
 
 #clear {
-    width: 180px;
+    flex-basis: 180px;
     /* (square button * 2) + (gaps) = (85px * 2) + 10px */
 }
 
 #equals {
-    width: 180px;
+    flex-basis: 180px;
     /* (85px * 2) + 10px */
 }
+
+/*@media only screen and (max-width: 450px) {
+    .calculator {
+        transform: scale(0.9);
+    }
+}*/
